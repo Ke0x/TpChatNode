@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <script src="/socket.io/socket.io.js"></script>
+    </head>
+    <body>
+        <ul id="messages">
+            
+        </ul>
+          <input id="textInput" autocomplete="off" /><button onclick="SendMessage()" id="buttonSend">Send</button>
+      </body>
+    <script>
+        const socket =  io();
+        let button = document.getElementById("buttonSend");
+        let textI = document.getElementById("textInput");
+        let messages = document.getElementById("messages");
+        socket.emit("firstConnection", "Hello Socket Server !");
+
+        socket.on("message", data => press(data));
+
+        function SendMessage() {
+            console.log("appeler")
+            socket.emit("message", textI.value)
+            console.log(textI.value)
+        }
+
+        function press(data) {
+            messages.innerHTML = data;
+            console.log(data)
+        }
+
+
+    </script>
+</html>
